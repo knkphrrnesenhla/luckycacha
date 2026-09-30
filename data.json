@@ -1,0 +1,578 @@
+{
+    "settings": {
+        "storeName": "LuckyCard Mystery Shop (ร้านสุ่มการ์ดออนไลน์)",
+        "promptpayId": "0812345678",
+        "promptpayName": "ร้าน LuckyCard Trading & Gacha",
+        "autoApproveSlip": true,
+        "pointsPerBaht": 0.1,
+        "coinExchangeRate": 1
+    },
+    "membershipTiers": [
+        {
+            "id": "bronze",
+            "name": "Bronze Member",
+            "minSpend": 0,
+            "discountPct": 0,
+            "pointMultiplier": 1,
+            "badgeColor": "#94a3b8",
+            "icon": "shield"
+        },
+        {
+            "id": "silver",
+            "name": "Silver Member",
+            "minSpend": 500,
+            "discountPct": 5,
+            "pointMultiplier": 1.2,
+            "badgeColor": "#38bdf8",
+            "icon": "award"
+        },
+        {
+            "id": "gold",
+            "name": "Gold Member",
+            "minSpend": 2000,
+            "discountPct": 10,
+            "pointMultiplier": 1.5,
+            "badgeColor": "#fbbf24",
+            "icon": "crown"
+        },
+        {
+            "id": "diamond",
+            "name": "Diamond VIP",
+            "minSpend": 5000,
+            "discountPct": 15,
+            "pointMultiplier": 2,
+            "badgeColor": "#a855f7",
+            "icon": "gem"
+        }
+    ],
+    "packs": [
+        {
+            "id": "pack_cyber",
+            "name": "Cyberpunk 2099 Legends",
+            "tagline": "การ์ดจักรกลไซเบอร์ มหาศึกโลกอนาคต ลุ้นรับการ์ดฟอยล์ทอง SSR!",
+            "price": 99,
+            "coverImage": "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=600&auto=format&fit=crop&q=80",
+            "colorTheme": "from-cyan-500 to-blue-700",
+            "glowColor": "#06b6d4",
+            "cardsPerPack": 3,
+            "rates": {
+                "SSR": 5,
+                "SR": 15,
+                "R": 30,
+                "C": 50
+            },
+            "cardPool": [
+                {
+                    "id": "c_cyb_1",
+                    "name": "Neon Dragon Overlord",
+                    "rarity": "SSR",
+                    "atk": 9999,
+                    "def": 8800,
+                    "element": "Cyber/Dragon",
+                    "desc": "ราชามังกรนีออนแห่งชินจูกุ ผู้คุมกระแสพลังงานไซเบอร์ทั้งหมด",
+                    "image": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&auto=format&fit=crop&q=80"
+                },
+                {
+                    "id": "c_cyb_2",
+                    "name": "Cybernetic Valkyrie",
+                    "rarity": "SSR",
+                    "atk": 9500,
+                    "def": 9200,
+                    "element": "Light/Mecha",
+                    "desc": "เทพธิดานักรบจักรกล ปีกแสงเลเซอร์ความร้อนสูงไร้เทียมทาน",
+                    "image": "https://images.unsplash.com/photo-1563089145-599997674d42?w=500&auto=format&fit=crop&q=80"
+                },
+                {
+                    "id": "c_cyb_3",
+                    "name": "Phantom Hacker Zero",
+                    "rarity": "SR",
+                    "atk": 7800,
+                    "def": 6500,
+                    "element": "Dark/Hacker",
+                    "desc": "แฮกเกอร์เงาผู้เจาะระบบสลายไฟร์วอลล์ได้ภายในพริบตา",
+                    "image": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=500&auto=format&fit=crop&q=80"
+                },
+                {
+                    "id": "c_cyb_4",
+                    "name": "Mech Titan Aegis",
+                    "rarity": "SR",
+                    "atk": 6900,
+                    "def": 8900,
+                    "element": "Earth/Mecha",
+                    "desc": "เกราะเหล็กไททัน ป้องกันการโจมตีระดับขีปนาวุธได้สบาย",
+                    "image": "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=500&auto=format&fit=crop&q=80"
+                },
+                {
+                    "id": "c_cyb_5",
+                    "name": "Plasma Blade Ronin",
+                    "rarity": "SR",
+                    "atk": 7600,
+                    "def": 6000,
+                    "element": "Energy/Warrior",
+                    "desc": "โรนินพเนจร ดาบพลาสมาตัดขาดทุกสสาร",
+                    "image": "https://images.unsplash.com/photo-1569701814227-d40b4bc1ee0a?w=500&auto=format&fit=crop&q=80"
+                },
+                {
+                    "id": "c_cyb_6",
+                    "name": "Drone Recon Unit",
+                    "rarity": "R",
+                    "atk": 5200,
+                    "def": 4800,
+                    "element": "Wind/Machine",
+                    "desc": "โดรนสอดแนมความเร็วเหนือเสียง ล็อคเป้าหมายอัตโนมัติ",
+                    "image": "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=500&auto=format&fit=crop&q=80"
+                },
+                {
+                    "id": "c_cyb_7",
+                    "name": "Electric Fox Familiar",
+                    "rarity": "R",
+                    "atk": 4900,
+                    "def": 5100,
+                    "element": "Thunder/Beast",
+                    "desc": "จิ้งจอกสายฟ้า ปล่อยกระแสไฟฟ้าแรงสูงปั่นป่วนคลื่นวิทยุ",
+                    "image": "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=500&auto=format&fit=crop&q=80"
+                },
+                {
+                    "id": "c_cyb_8",
+                    "name": "Street Scavenger",
+                    "rarity": "C",
+                    "atk": 2800,
+                    "def": 2500,
+                    "element": "Neutral/Human",
+                    "desc": "นักเก็บกู้เศษอะไหล่ไซเบอร์ในตรอกมืดของเมืองหลวง",
+                    "image": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500&auto=format&fit=crop&q=80"
+                },
+                {
+                    "id": "c_cyb_9",
+                    "name": "Security Bot Mk.II",
+                    "rarity": "C",
+                    "atk": 3100,
+                    "def": 3400,
+                    "element": "Machine/Guard",
+                    "desc": "หุ่นยนต์ลาดตระเวนรักษาความปลอดภัยพื้นฐาน",
+                    "image": "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=500&auto=format&fit=crop&q=80"
+                },
+                {
+                    "id": "c_cyb_10",
+                    "name": "Glitch Fragment",
+                    "rarity": "C",
+                    "atk": 2100,
+                    "def": 2000,
+                    "element": "Digital/Glitch",
+                    "desc": "เศษเสี้ยวบั๊กข้อมูลที่ล่องลอยในเน็ตเวิร์ก",
+                    "image": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500&auto=format&fit=crop&q=80"
+                }
+            ]
+        },
+        {
+            "id": "pack_mythic",
+            "name": "Mythic Beasts & Gods",
+            "tagline": "มหาเทพเทวตำนานและสัตว์อสูรโบราณ การันตีความขลังทุกซอง!",
+            "price": 149,
+            "coverImage": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&auto=format&fit=crop&q=80",
+            "colorTheme": "from-amber-500 to-red-700",
+            "glowColor": "#f59e0b",
+            "cardsPerPack": 3,
+            "rates": {
+                "SSR": 6,
+                "SR": 18,
+                "R": 36,
+                "C": 40
+            },
+            "cardPool": [
+                {
+                    "id": "c_myt_1",
+                    "name": "Celestial Phoenix Queen",
+                    "rarity": "SSR",
+                    "atk": 9800,
+                    "def": 9400,
+                    "element": "Fire/Divine",
+                    "desc": "ราชินีนกฟีนิกซ์อมตะ คืนชีพจากเถ้าถ่านพร้อมเพลิงสุริยะ",
+                    "image": "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=500&auto=format&fit=crop&q=80"
+                },
+                {
+                    "id": "c_myt_2",
+                    "name": "Abyssal Leviathan",
+                    "rarity": "SSR",
+                    "atk": 9600,
+                    "def": 9700,
+                    "element": "Water/Titan",
+                    "desc": "อสูรกายยักษ์ใต้ทะเลลึก ก่อคลื่นยักษ์กลืนกินทั้งทวีป",
+                    "image": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500&auto=format&fit=crop&q=80"
+                },
+                {
+                    "id": "c_myt_3",
+                    "name": "Archangel of Dawn",
+                    "rarity": "SR",
+                    "atk": 8100,
+                    "def": 7500,
+                    "element": "Holy/Angel",
+                    "desc": "อัครทูตสวรรค์แห่งรุ่งอรุณ ปัดเป่าความมืดด้วยหอกแสง",
+                    "image": "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=500&auto=format&fit=crop&q=80"
+                },
+                {
+                    "id": "c_myt_4",
+                    "name": "Thunder Griffin",
+                    "rarity": "SR",
+                    "atk": 7500,
+                    "def": 7100,
+                    "element": "Wind/Beast",
+                    "desc": "กริฟฟอนสายฟ้า เจ้าแห่งยอดเขาสูง",
+                    "image": "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=500&auto=format&fit=crop&q=80"
+                },
+                {
+                    "id": "c_myt_5",
+                    "name": "Forest Dryad Priestess",
+                    "rarity": "R",
+                    "atk": 4800,
+                    "def": 6200,
+                    "element": "Nature/Elf",
+                    "desc": "ภูติพิทักษ์พงไพร ฟื้นฟูบาดแผลด้วยหยาดน้ำค้างศักดิ์สิทธิ์",
+                    "image": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500&auto=format&fit=crop&q=80"
+                },
+                {
+                    "id": "c_myt_6",
+                    "name": "Rune Guardian",
+                    "rarity": "R",
+                    "atk": 5400,
+                    "def": 5800,
+                    "element": "Rock/Golem",
+                    "desc": "โกเลมหินสลักอักขระโบราณ แข็งแกร่งดั่งขุนเขา",
+                    "image": "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=500&auto=format&fit=crop&q=80"
+                },
+                {
+                    "id": "c_myt_7",
+                    "name": "Goblin Raider",
+                    "rarity": "C",
+                    "atk": 2600,
+                    "def": 2100,
+                    "element": "Dark/Goblin",
+                    "desc": "ก็อบลินจอมป่วน ออกล่าของวิเศษตามชายป่า",
+                    "image": "https://images.unsplash.com/photo-1563089145-599997674d42?w=500&auto=format&fit=crop&q=80"
+                },
+                {
+                    "id": "c_myt_8",
+                    "name": "Emerald Slime",
+                    "rarity": "C",
+                    "atk": 1900,
+                    "def": 3200,
+                    "element": "Nature/Slime",
+                    "desc": "สไลม์มรกต มีความยืดหยุ่นสูงทนแรงกระแทก",
+                    "image": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=500&auto=format&fit=crop&q=80"
+                }
+            ]
+        },
+        {
+            "id": "pack_anime",
+            "name": "Magical Academy Chronicles",
+            "tagline": "การ์ดสาวน้อยเวทมนตร์และจอมเวทผู้พิทักษ์ ลิมิเต็ดอิดิชั่น!",
+            "price": 120,
+            "coverImage": "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=600&auto=format&fit=crop&q=80",
+            "colorTheme": "from-pink-500 to-purple-800",
+            "glowColor": "#ec4899",
+            "cardsPerPack": 3,
+            "rates": {
+                "SSR": 5,
+                "SR": 20,
+                "R": 35,
+                "C": 40
+            },
+            "cardPool": [
+                {
+                    "id": "c_ani_1",
+                    "name": "Chrono Sorceress Luna",
+                    "rarity": "SSR",
+                    "atk": 9950,
+                    "def": 9100,
+                    "element": "Time/Mage",
+                    "desc": "แม่มดแห่งกาลเวลา ควบคุมอนาคตและย้อนอดีตได้ดั่งใจนึก",
+                    "image": "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=500&auto=format&fit=crop&q=80"
+                },
+                {
+                    "id": "c_ani_2",
+                    "name": "Flame Alchemist Ren",
+                    "rarity": "SR",
+                    "atk": 7900,
+                    "def": 6400,
+                    "element": "Fire/Alchemist",
+                    "desc": "นักเล่นแร่แปรธาตุเพลิง รังสรรค์เปลวไฟสีฟ้าบริสุทธิ์",
+                    "image": "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=500&auto=format&fit=crop&q=80"
+                },
+                {
+                    "id": "c_ani_3",
+                    "name": "Star Reader Mia",
+                    "rarity": "R",
+                    "atk": 5100,
+                    "def": 5500,
+                    "element": "Cosmic/Astrologer",
+                    "desc": "ผู้ทำนายดวงดาว พยากรณ์ชะตาชีวิตแม่นยำ",
+                    "image": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&auto=format&fit=crop&q=80"
+                },
+                {
+                    "id": "c_ani_4",
+                    "name": "Academy Novice Cat",
+                    "rarity": "C",
+                    "atk": 2500,
+                    "def": 2300,
+                    "element": "Magic/Familiar",
+                    "desc": "แมวน้อยฝึกหัด มักจะทำขวดยาเวทมนตร์ตกแตกเสมอ",
+                    "image": "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=500&auto=format&fit=crop&q=80"
+                }
+            ]
+        }
+    ],
+    "users": [
+        {
+            "id": "u_admin",
+            "email": "admin@luckycard.com",
+            "passwordHash": "$2b$10$6TUp1SPaTIkLFEinYP847eZ6r8rN6/K1g1MnjaBFagHFTeTdl2Bdi",
+            "displayName": "Card Master (ผู้ดูแลระบบ)",
+            "role": "admin",
+            "phone": "0812345678",
+            "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=AdminMaster",
+            "coins": 9999,
+            "points": 5000,
+            "totalSpent": 15000,
+            "tier": "diamond",
+            "address": {
+                "recipientName": "สมชาย การ์ดมาสเตอร์",
+                "phone": "0812345678",
+                "street": "88/9 อาคารการ์ดพลาซ่า ชั้น 5 ถนนสุขุมวิท",
+                "subdistrict": "คลองเตย",
+                "district": "คลองเตย",
+                "province": "กรุงเทพมหานคร",
+                "postalCode": "10110",
+                "note": "ส่งการ์ดใส่ซองบับเบิ้ลกันกระแทกอย่างดี"
+            },
+            "createdAt": "2026-09-30T10:03:53.665Z"
+        },
+        {
+            "id": "u_demo",
+            "email": "demo@user.com",
+            "passwordHash": "$2b$10$Pjb9AYoc/y0QjtnHWQ9BJ.Dmy1WZ4dIPs6aB.EjhAMnNkLPuuqXPi",
+            "displayName": "น้องการ์ด มือสุ่มไว",
+            "role": "user",
+            "phone": "0899887766",
+            "avatar": "https://api.dicebear.com/7.x/adventurer/svg?seed=LuckyUser",
+            "coins": 358,
+            "points": 267,
+            "totalSpent": 792,
+            "tier": "silver",
+            "address": {
+                "recipientName": "คุณสมหญิง สายสุ่ม",
+                "phone": "0899887766",
+                "street": "123/45 หมู่บ้านสุขใจ ซอย 8",
+                "subdistrict": "บางหว้า",
+                "district": "ภาษีเจริญ",
+                "province": "กรุงเทพมหานคร",
+                "postalCode": "10160",
+                "note": "ฝากไว้ที่ป้อมยามหน้าหมู่บ้านได้เลยค่ะ"
+            },
+            "createdAt": "2026-09-30T10:03:53.737Z"
+        }
+    ],
+    "inventory": [
+        {
+            "id": "inv_1",
+            "userId": "u_demo",
+            "cardId": "c_cyb_3",
+            "cardName": "Phantom Hacker Zero",
+            "rarity": "SR",
+            "element": "Dark/Hacker",
+            "atk": 7800,
+            "def": 6500,
+            "image": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=500&auto=format&fit=crop&q=80",
+            "packId": "pack_cyber",
+            "obtainedAt": "2026-09-29T10:03:53.737Z",
+            "physicalRedeemed": false
+        },
+        {
+            "id": "inv_2",
+            "userId": "u_demo",
+            "cardId": "c_cyb_6",
+            "cardName": "Drone Recon Unit",
+            "rarity": "R",
+            "element": "Wind/Machine",
+            "atk": 5200,
+            "def": 4800,
+            "image": "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=500&auto=format&fit=crop&q=80",
+            "packId": "pack_cyber",
+            "obtainedAt": "2026-09-29T10:03:53.737Z",
+            "physicalRedeemed": false
+        },
+        {
+            "id": "inv_1790762869698_a1zthr",
+            "userId": "u_demo",
+            "cardId": "c_cyb_3",
+            "cardName": "Phantom Hacker Zero",
+            "rarity": "SR",
+            "element": "Dark/Hacker",
+            "atk": 7800,
+            "def": 6500,
+            "desc": "แฮกเกอร์เงาผู้เจาะระบบสลายไฟร์วอลล์ได้ภายในพริบตา",
+            "image": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=500&auto=format&fit=crop&q=80",
+            "packId": "pack_cyber",
+            "obtainedAt": "2026-09-30T10:07:49.698Z",
+            "physicalRedeemed": false
+        },
+        {
+            "id": "inv_1790762869698_l7s7op",
+            "userId": "u_demo",
+            "cardId": "c_cyb_8",
+            "cardName": "Street Scavenger",
+            "rarity": "C",
+            "element": "Neutral/Human",
+            "atk": 2800,
+            "def": 2500,
+            "desc": "นักเก็บกู้เศษอะไหล่ไซเบอร์ในตรอกมืดของเมืองหลวง",
+            "image": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500&auto=format&fit=crop&q=80",
+            "packId": "pack_cyber",
+            "obtainedAt": "2026-09-30T10:07:49.698Z",
+            "physicalRedeemed": false
+        },
+        {
+            "id": "inv_1790762869698_rferc8",
+            "userId": "u_demo",
+            "cardId": "c_cyb_7",
+            "cardName": "Electric Fox Familiar",
+            "rarity": "R",
+            "element": "Thunder/Beast",
+            "atk": 4900,
+            "def": 5100,
+            "desc": "จิ้งจอกสายฟ้า ปล่อยกระแสไฟฟ้าแรงสูงปั่นป่วนคลื่นวิทยุ",
+            "image": "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=500&auto=format&fit=crop&q=80",
+            "packId": "pack_cyber",
+            "obtainedAt": "2026-09-30T10:07:49.698Z",
+            "physicalRedeemed": false
+        },
+        {
+            "id": "inv_1790766691299_1dzo6x",
+            "userId": "u_demo",
+            "cardId": "c_myt_8",
+            "cardName": "Emerald Slime",
+            "rarity": "C",
+            "element": "Nature/Slime",
+            "atk": 1900,
+            "def": 3200,
+            "desc": "สไลม์มรกต มีความยืดหยุ่นสูงทนแรงกระแทก",
+            "image": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=500&auto=format&fit=crop&q=80",
+            "packId": "pack_mythic",
+            "obtainedAt": "2026-09-30T11:11:31.299Z",
+            "physicalRedeemed": false
+        },
+        {
+            "id": "inv_1790766691299_y4b4el",
+            "userId": "u_demo",
+            "cardId": "c_myt_3",
+            "cardName": "Archangel of Dawn",
+            "rarity": "SR",
+            "element": "Holy/Angel",
+            "atk": 8100,
+            "def": 7500,
+            "desc": "อัครทูตสวรรค์แห่งรุ่งอรุณ ปัดเป่าความมืดด้วยหอกแสง",
+            "image": "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=500&auto=format&fit=crop&q=80",
+            "packId": "pack_mythic",
+            "obtainedAt": "2026-09-30T11:11:31.299Z",
+            "physicalRedeemed": false
+        },
+        {
+            "id": "inv_1790766691299_qtrabw",
+            "userId": "u_demo",
+            "cardId": "c_myt_7",
+            "cardName": "Goblin Raider",
+            "rarity": "C",
+            "element": "Dark/Goblin",
+            "atk": 2600,
+            "def": 2100,
+            "desc": "ก็อบลินจอมป่วน ออกล่าของวิเศษตามชายป่า",
+            "image": "https://images.unsplash.com/photo-1563089145-599997674d42?w=500&auto=format&fit=crop&q=80",
+            "packId": "pack_mythic",
+            "obtainedAt": "2026-09-30T11:11:31.299Z",
+            "physicalRedeemed": false
+        }
+    ],
+    "orders": [
+        {
+            "id": "ORD-691301-HOT",
+            "createdAt": "2026-09-30T11:11:31.301Z",
+            "status": "completed",
+            "userId": "u_demo",
+            "userEmail": "demo@user.com",
+            "userName": "น้องการ์ด มือสุ่มไว",
+            "type": "pack_purchase",
+            "packId": "pack_mythic",
+            "packName": "Mythic Beasts & Gods",
+            "quantity": 1,
+            "subtotal": 149,
+            "discountAmount": 7,
+            "finalAmount": 142,
+            "paymentMethod": "coins",
+            "cardsWon": [
+                "Emerald Slime (C)",
+                "Archangel of Dawn (SR)",
+                "Goblin Raider (C)"
+            ]
+        },
+        {
+            "id": "ORD-869701-Y65",
+            "createdAt": "2026-09-30T10:07:49.701Z",
+            "status": "completed",
+            "userId": "u_demo",
+            "userEmail": "demo@user.com",
+            "userName": "น้องการ์ด มือสุ่มไว",
+            "type": "pack_purchase",
+            "packId": "pack_cyber",
+            "packName": "Cyberpunk 2099 Legends",
+            "quantity": 1,
+            "subtotal": 99,
+            "discountAmount": 5,
+            "finalAmount": 94,
+            "paymentMethod": "coins",
+            "cardsWon": [
+                "Phantom Hacker Zero (SR)",
+                "Street Scavenger (C)",
+                "Electric Fox Familiar (R)"
+            ]
+        },
+        {
+            "id": "ORD-859736-518",
+            "createdAt": "2026-09-30T10:07:39.737Z",
+            "status": "pending",
+            "userId": "guest",
+            "userEmail": "guest@luckycard.com",
+            "userName": "ลูกค้าทั่วไป",
+            "type": "pack_purchase",
+            "packId": "pack_cyber",
+            "packName": "Cyberpunk 2099 Legends",
+            "quantity": 1,
+            "subtotal": 99,
+            "discountAmount": 0,
+            "finalAmount": 99,
+            "paymentMethod": "promptpay",
+            "promptpayQrPayload": "00020101021229370016A000000677010111011300668123456785802TH5303764540599.0063047551"
+        },
+        {
+            "id": "ORD-DEMO-001",
+            "userId": "u_demo",
+            "userEmail": "demo@user.com",
+            "userName": "น้องการ์ด มือสุ่มไว",
+            "type": "pack_purchase",
+            "packId": "pack_cyber",
+            "packName": "Cyberpunk 2099 Legends",
+            "quantity": 1,
+            "subtotal": 99,
+            "discountAmount": 0,
+            "finalAmount": 99,
+            "paymentMethod": "promptpay",
+            "status": "completed",
+            "promptpayQrPayload": "00020101021129370016A000000677010111011300668123456785802TH5303764540599.006304ABCD",
+            "slipUrl": "/uploads/sample-slip.png",
+            "cardsWon": [
+                "Phantom Hacker Zero (SR)",
+                "Drone Recon Unit (R)",
+                "Security Bot Mk.II (C)"
+            ],
+            "createdAt": "2026-09-29T10:03:53.737Z"
+        }
+    ]
+}

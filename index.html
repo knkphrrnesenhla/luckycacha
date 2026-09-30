@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="th" class="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LuckyCard Shop - ร้านสุ่มการ์ดออนไลน์ & เมมเบอร์สโตร์</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#fdf4ff',
+              500: '#a855f7',
+              600: '#9333ea',
+              700: '#7e22ce',
+              800: '#6b21a8',
+              900: '#581c87',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Canvas Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/custom.css">
+</head>
+
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-purple-600 selection:text-white">
+
+  <!-- ================= TOP NAVIGATION BAR ================= -->
+  <header class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+
+      <!-- Brand Logo -->
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="app.switchTab('shop')">
+        <div
+          class="w-12 h-12 rounded-xl bg-gradient-to-tr from-purple-600 via-pink-500 to-amber-400 p-[2px] shadow-lg shadow-purple-500/20">
+          <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
+            <i
+              class="fa-solid fa-clone text-2xl text-transparent bg-clip-text bg-gradient-to-tr from-purple-400 to-pink-400"></i>
+          </div>
+        </div>
+        <div>
+          <div
+            class="text-xl font-bold tracking-tight bg-gradient-to-r from-purple-400 via-pink-400 to-amber-300 bg-clip-text text-transparent font-orbitron">
+            LUCKYCARD
+          </div>
+          <p class="text-xs text-slate-400">Mystery & Gacha Card Shop</p>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="hidden md:flex items-center space-x-1">
+        <button onclick="app.switchTab('shop')" id="nav-shop"
+          class="nav-btn px-4 py-2 rounded-lg text-sm font-medium transition text-purple-400 bg-purple-950/40 border border-purple-800/50">
+          <i class="fa-solid fa-store mr-2"></i>ร้านสุ่มการ์ด
+        </button>
+        <button onclick="app.switchTab('binder')" id="nav-binder"
+          class="nav-btn px-4 py-2 rounded-lg text-sm font-medium transition text-slate-400 hover:text-slate-200 hover:bg-slate-800/60">
+          <i class="fa-solid fa-book-bookmark mr-2"></i>คลังการ์ดของฉัน
+        </button>
+        <button onclick="app.switchTab('membership')" id="nav-membership"
+          class="nav-btn px-4 py-2 rounded-lg text-sm font-medium transition text-slate-400 hover:text-slate-200 hover:bg-slate-800/60">
+          <i class="fa-solid fa-crown mr-2"></i>ระดับเมมเบอร์
+        </button>
+        <button onclick="app.switchTab('orders')" id="nav-orders"
+          class="nav-btn px-4 py-2 rounded-lg text-sm font-medium transition text-slate-400 hover:text-slate-200 hover:bg-slate-800/60">
+          <i class="fa-solid fa-receipt mr-2"></i>ประวัติคำสั่งซื้อ
+        </button>
+        <button onclick="app.switchTab('admin')" id="nav-admin"
+          class="nav-btn px-4 py-2 rounded-lg text-sm font-medium transition text-amber-400 hover:bg-amber-950/30 border border-amber-900/30">
+          <i class="fa-solid fa-screwdriver-wrench mr-2"></i>หลังบ้านแอดมิน
+        </button>
+      </nav>
+
+      <!-- Right User Actions & Balance -->
+      <div class="flex items-center space-x-3" id="header-user-area">
+        <!-- Will be populated dynamically -->
+      </div>
+    </div>
+
+    <!-- Mobile Nav Bar -->
+    <div class="md:hidden flex overflow-x-auto py-2 px-4 space-x-2 border-t border-slate-800 bg-slate-900/80">
+      <button onclick="app.switchTab('shop')"
+        class="text-xs px-3 py-1.5 rounded-md bg-purple-950/50 text-purple-300 whitespace-nowrap"><i
+          class="fa-solid fa-store mr-1"></i>ร้านค้า</button>
+      <button onclick="app.switchTab('binder')"
+        class="text-xs px-3 py-1.5 rounded-md bg-slate-800 text-slate-300 whitespace-nowrap"><i
+          class="fa-solid fa-book mr-1"></i>คลังการ์ด</button>
+      <button onclick="app.switchTab('membership')"
+        class="text-xs px-3 py-1.5 rounded-md bg-slate-800 text-slate-300 whitespace-nowrap"><i
+          class="fa-solid fa-crown mr-1"></i>เมมเบอร์</button>
+      <button onclick="app.switchTab('orders')"
+        class="text-xs px-3 py-1.5 rounded-md bg-slate-800 text-slate-300 whitespace-nowrap"><i
+          class="fa-solid fa-receipt mr-1"></i>คำสั่งซื้อ</button>
+      <button onclick="app.switchTab('admin')"
+        class="text-xs px-3 py-1.5 rounded-md bg-slate-800 text-amber-300 whitespace-nowrap"><i
+          class="fa-solid fa-gear mr-1"></i>แอดมิน</button>
+    </div>
+  </header>
+
+  <!-- ================= MAIN CONTAINER ================= -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- Notification Banner -->
+    <div id="alert-banner" class="hidden mb-6 p-4 rounded-xl text-sm flex items-center justify-between transition-all">
+    </div>
+
+    <!-- 1. SHOP & GACHA CATALOG VIEW -->
+    <section id="view-shop" class="space-y-8">
+
+      <!-- Hero Banner -->
+      <div
+        class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-purple-900 via-indigo-950 to-slate-950 p-8 sm:p-12 border border-purple-500/20 shadow-2xl">
+        <div class="relative z-10 max-w-2xl space-y-4">
+          <span
+            class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-pink-500/20 text-pink-300 border border-pink-500/30">
+            <i class="fa-solid fa-sparkles mr-1.5"></i> ตู้สุ่มการ์ดซีซั่นใหม่ล่าสุด 2026
+          </span>
+          <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
+            เปิดกล่องสุ่มการ์ดหายาก <br>
+            <span
+              class="bg-gradient-to-r from-amber-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">ลุ้นการ์ดฟอยล์ทอง
+              SSR</span>
+          </h1>
+          <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+            สุ่มการ์ดออนไลน์ได้ทันที ชำระเงินด้วย QR Code พร้อมเพย์สะดวกรวดเร็ว สะสมการ์ดในคลัง
+            หรือกดสั่งให้จัดส่งการ์ดของจริงส่งถึงหน้าบ้านคุณได้ทันที!
+          </p>
+          <div class="pt-2 flex flex-wrap gap-3">
+            <button onclick="document.getElementById('packs-container').scrollIntoView({behavior: 'smooth'})"
+              class="px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-medium shadow-lg shadow-purple-600/30 transition transform hover:-translate-y-0.5">
+              <i class="fa-solid fa-box-open mr-2"></i>เลือกซองสุ่มเลย
+            </button>
+            <button onclick="app.openTopupModal()"
+              class="px-6 py-3 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 border border-slate-700 font-medium transition">
+              <i class="fa-solid fa-qrcode mr-2 text-cyan-400"></i>เติมเงินผ่าน PromptPay
+            </button>
+          </div>
+        </div>
+
+        <!-- Ambient Glow -->
+        <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl pointer-events-none">
+        </div>
+        <div class="absolute right-40 top-0 w-80 h-80 bg-pink-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      </div>
+
+      <!-- Member Perk Banner -->
+      <div id="shop-member-perk-card"
+        class="bg-gradient-to-r from-slate-900 to-slate-800/90 rounded-2xl p-4 border border-slate-700/80 flex items-center justify-between">
+        <!-- Injected via app.js -->
+      </div>
+
+      <!-- Card Packs List -->
+      <div class="space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h2 class="text-2xl font-bold text-white flex items-center">
+              <i class="fa-solid fa-fire text-amber-400 mr-2"></i> ซองการ์ดทั้งหมด (Card Packs)
+            </h2>
+            <p class="text-sm text-slate-400">ทุกซองการันตีการ์ดสะสม 3 ใบ พร้อมลุ้นการ์ดระดับ SSR ฟอยล์สะท้อนแสง</p>
+          </div>
+        </div>
+
+        <div id="packs-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Packs will be rendered here -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. CARD BINDER / COLLECTION VIEW -->
+    <section id="view-binder" class="hidden space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+        <div>
+          <h2 class="text-2xl font-bold text-white flex items-center">
+            <i class="fa-solid fa-book-open text-purple-400 mr-2"></i> สมุดสะสมการ์ดของฉัน (Card Binder)
+          </h2>
+          <p class="text-sm text-slate-400">การ์ดทั้งหมดที่คุณเปิดได้จากการสุ่ม สามารถเลือกส่งพัสดุถึงบ้านได้</p>
+        </div>
+
+        <!-- Shipping Request Button -->
+        <div class="flex items-center gap-3">
+          <button id="btn-request-shipping" onclick="app.requestPhysicalDelivery()"
+            class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-medium text-sm shadow-lg shadow-emerald-900/30 transition flex items-center">
+            <i class="fa-solid fa-truck-fast mr-2"></i>ขอจัดส่งการ์ดของจริง (<span id="selected-cards-count">0</span>
+            ใบ)
+          </button>
+        </div>
+      </div>
+
+      <!-- Filter Controls -->
+      <div
+        class="flex flex-wrap items-center justify-between gap-4 bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+        <div class="flex items-center space-x-2 overflow-x-auto pb-1 sm:pb-0">
+          <button onclick="app.filterBinder('ALL')"
+            class="binder-filter-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-purple-600 text-white"
+            data-filter="ALL">ทั้งหมด (<span id="count-all">0</span>)</button>
+          <button onclick="app.filterBinder('SSR')"
+            class="binder-filter-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 text-amber-300 border border-amber-500/30"
+            data-filter="SSR">⭐ SSR (<span id="count-ssr">0</span>)</button>
+          <button onclick="app.filterBinder('SR')"
+            class="binder-filter-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 text-purple-300 border border-purple-500/30"
+            data-filter="SR">✨ SR (<span id="count-sr">0</span>)</button>
+          <button onclick="app.filterBinder('R')"
+            class="binder-filter-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 text-cyan-300 border border-cyan-500/30"
+            data-filter="R">🔷 Rare (<span id="count-r">0</span>)</button>
+          <button onclick="app.filterBinder('C')"
+            class="binder-filter-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 text-slate-300 border border-slate-700"
+            data-filter="C">⚪ Common (<span id="count-c">0</span>)</button>
+        </div>
+        <div class="text-xs text-slate-400">
+          <i class="fa-solid fa-circle-check text-emerald-400 mr-1"></i> ติ๊กเลือกการ์ดที่ต้องการส่งพัสดุ
+        </div>
+      </div>
+
+      <!-- Cards Grid -->
+      <div id="binder-cards-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+        <!-- Rendered via JS -->
+      </div>
+    </section>
+
+    <!-- 3. MEMBERSHIP TIERS VIEW -->
+    <section id="view-membership" class="hidden space-y-8">
+      <div class="text-center max-w-2xl mx-auto space-y-3">
+        <span
+          class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/20 text-amber-300 border border-amber-500/30">
+          <i class="fa-solid fa-crown mr-1.5"></i> VIP & Membership Program
+        </span>
+        <h2 class="text-3xl font-extrabold text-white">ระบบสมาชิกระดับพรีเมียม (Membership)</h2>
+        <p class="text-slate-400 text-sm">
+          ยิ่งสุ่มยิ่งคุ้ม! ยอดใช้จ่ายสะสมจะช่วยเลื่อนระดับเมมเบอร์โดยอัตโนมัติ รับส่วนลดพิเศษทันทีทุกคำสั่งซื้อ
+          พร้อมตัวคูณคะแนนสะสม
+        </p>
+      </div>
+
+      <!-- Current Member Status Card -->
+      <div id="member-overview-card"
+        class="bg-gradient-to-r from-slate-900 via-purple-950/40 to-slate-900 p-6 sm:p-8 rounded-3xl border border-purple-500/30 shadow-xl">
+        <!-- Rendered via JS -->
+      </div>
+
+      <!-- Tier Comparison Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="tiers-list-container">
+        <!-- Rendered via JS -->
+      </div>
+    </section>
+
+    <!-- 4. PROFILE & BACKEND SETTINGS VIEW -->
+    <section id="view-profile" class="hidden space-y-6">
+      <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+        <div>
+          <h2 class="text-2xl font-bold text-white flex items-center">
+            <i class="fa-solid fa-id-card text-purple-400 mr-2"></i> การตั้งค่าโปรไฟล์เบื้องหลังของผู้ใช้
+          </h2>
+          <p class="text-sm text-slate-400">จัดการข้อมูลส่วนตัว, ที่อยู่สำหรับส่งพัสดุการ์ดจริง, รหัสผ่าน และยอดเงิน</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+        <!-- Left: Profile Summary & Avatar -->
+        <div class="bg-slate-900 rounded-2xl p-6 border border-slate-800 space-y-6 text-center">
+          <div class="relative w-28 h-28 mx-auto">
+            <img id="profile-avatar-preview" src="https://api.dicebear.com/7.x/adventurer/svg?seed=Lucky"
+              class="w-full h-full rounded-2xl object-cover bg-slate-800 border-2 border-purple-500/50 shadow-lg">
+            <button onclick="app.randomizeAvatar()" title="สุ่มรูปโปรไฟล์ใหม่"
+              class="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-purple-600 hover:bg-purple-500 text-white flex items-center justify-center text-xs shadow-md transition">
+              <i class="fa-solid fa-arrows-rotate"></i>
+            </button>
+          </div>
+
+          <div>
+            <h3 id="profile-summary-name" class="text-xl font-bold text-white">ชื่อผู้ใช้</h3>
+            <p id="profile-summary-email" class="text-xs text-slate-400">user@email.com</p>
+            <div id="profile-summary-tier-badge"
+              class="mt-2 inline-block px-3 py-1 rounded-full text-xs font-semibold bg-slate-800 text-slate-300">
+              Bronze Member
+            </div>
+          </div>
+
+          <!-- Balance Pill -->
+          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 grid grid-cols-2 gap-2 text-left">
+            <div>
+              <div class="text-xs text-slate-400">เหรียญคงเหลือ</div>
+              <div class="text-lg font-bold text-amber-400 font-orbitron"><span id="profile-coins">0</span> 🪙</div>
+            </div>
+            <div>
+              <div class="text-xs text-slate-400">แต้มสะสม</div>
+              <div class="text-lg font-bold text-purple-400 font-orbitron"><span id="profile-points">0</span> ✨</div>
+            </div>
+          </div>
+
+          <button onclick="app.openTopupModal()"
+            class="w-full py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-sm transition">
+            <i class="fa-solid fa-qrcode mr-1"></i> เติมเงินด้วย PromptPay QR
+          </button>
+        </div>
+
+        <!-- Right: Settings Form Tabs -->
+        <div class="lg:col-span-2 space-y-6">
+          <div class="bg-slate-900 rounded-2xl p-6 sm:p-8 border border-slate-800 space-y-6">
+
+            <h3 class="text-lg font-bold text-white flex items-center">
+              <i class="fa-solid fa-user-pen text-purple-400 mr-2"></i> ข้อมูลโปรไฟล์ทั่วไป
+            </h3>
+
+            <form id="form-profile-info" onsubmit="app.saveProfileInfo(event)" class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-medium text-slate-400 mb-1">ชื่อที่แสดง (Display Name)</label>
+                  <input type="text" id="prof-display-name" required
+                    class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-purple-500 focus:outline-none text-sm text-white">
+                </div>
+                <div>
+                  <label class="block text-xs font-medium text-slate-400 mb-1">เบอร์โทรศัพท์ติดต่อ</label>
+                  <input type="tel" id="prof-phone"
+                    class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-purple-500 focus:outline-none text-sm text-white"
+                    placeholder="081xxxxxxx">
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-medium text-slate-400 mb-1">อีเมล (ใช้เข้าสู่ระบบ -
+                  แก้ไขไม่ได้)</label>
+                <input type="email" id="prof-email" disabled
+                  class="w-full px-4 py-2.5 rounded-xl bg-slate-950/60 border border-slate-800 text-sm text-slate-400 cursor-not-allowed">
+              </div>
+
+              <!-- Shipping Address Section -->
+              <div class="pt-4 border-t border-slate-800 space-y-4">
+                <h4 class="text-sm font-bold text-emerald-400 flex items-center">
+                  <i class="fa-solid fa-location-dot mr-2"></i> ที่อยู่จัดส่งพัสดุ (สำหรับการส่งการ์ดของจริงถึงบ้าน)
+                </h4>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs font-medium text-slate-400 mb-1">ชื่อ-นามสกุล ผู้รับพัสดุ</label>
+                    <input type="text" id="addr-name"
+                      class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-purple-500 focus:outline-none text-sm text-white"
+                      placeholder="สมชาย สุ่มการ์ด">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-medium text-slate-400 mb-1">เบอร์โทรศัพท์ผู้รับ</label>
+                    <input type="tel" id="addr-phone"
+                      class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-purple-500 focus:outline-none text-sm text-white"
+                      placeholder="081xxxxxxx">
+                  </div>
+                </div>
+
+                <div>
+                  <label class="block text-xs font-medium text-slate-400 mb-1">บ้านเลขที่ / อาคาร / ถนน / ซอย</label>
+                  <input type="text" id="addr-street"
+                    class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-purple-500 focus:outline-none text-sm text-white"
+                    placeholder="123/45 หมู่บ้านสุขใจ ซอย 5 ถนนแจ้งวัฒนะ">
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  <div>
+                    <label class="block text-xs font-medium text-slate-400 mb-1">แขวง / ตำบล</label>
+                    <input type="text" id="addr-subdistrict"
+                      class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-purple-500 focus:outline-none text-sm text-white">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-medium text-slate-400 mb-1">เขต / อำเภอ</label>
+                    <input type="text" id="addr-district"
+                      class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-purple-500 focus:outline-none text-sm text-white">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-medium text-slate-400 mb-1">จังหวัด</label>
+                    <input type="text" id="addr-province"
+                      class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-purple-500 focus:outline-none text-sm text-white"
+                      placeholder="กรุงเทพฯ">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-medium text-slate-400 mb-1">รหัสไปรษณีย์</label>
+                    <input type="text" id="addr-postal"
+                      class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-purple-500 focus:outline-none text-sm text-white"
+                      placeholder="10210">
+                  </div>
+                </div>
+
+                <div>
+                  <label class="block text-xs font-medium text-slate-400 mb-1">หมายเหตุเพิ่มเติมถึงคนส่ง (เช่น
+                    ฝากป้อมยาม)</label>
+                  <input type="text" id="addr-note"
+                    class="w-full px-4 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-purple-500 focus:outline-none text-sm text-white"
+                    placeholder="โทรแจ้งก่อนส่ง">
+                </div>
+              </div>
+
+              <div class="pt-4 flex justify-end">
+                <button type="submit"
+                  class="px-6 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-medium text-sm transition shadow-lg shadow-purple-600/30">
+                  <i class="fa-solid fa-floppy-disk mr-2"></i>บันทึกการเปลี่ยนแปลง
+                </button>
+              </div>
+            </form>
+
+            <!-- Change Password Section -->
+            <div class="pt-6 border-t border-slate-800">
+              <h3 class="text-sm font-bold text-white flex items-center mb-4">
+                <i class="fa-solid fa-key text-amber-400 mr-2"></i> เปลี่ยนรหัสผ่านความปลอดภัย
+              </h3>
+              <form id="form-change-password" onsubmit="app.savePassword(event)"
+                class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-medium text-slate-400 mb-1">รหัสผ่านเดิม</label>
+                  <input type="password" id="pwd-old" required
+                    class="w-full px-4 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-purple-500 focus:outline-none text-sm text-white">
+                </div>
+                <div>
+                  <label class="block text-xs font-medium text-slate-400 mb-1">รหัสผ่านใหม่ (อย่างน้อย 6
+                    ตัวอักษร)</label>
+                  <input type="password" id="pwd-new" required
+                    class="w-full px-4 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-purple-500 focus:outline-none text-sm text-white">
+                </div>
+                <div class="sm:col-span-2 flex justify-end">
+                  <button type="submit"
+                    class="px-5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-medium transition">
+                    อัปเดตรหัสผ่าน
+                  </button>
+                </div>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. ORDER HISTORY VIEW -->
+    <section id="view-orders" class="hidden space-y-6">
+      <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+        <div>
+          <h2 class="text-2xl font-bold text-white flex items-center">
+            <i class="fa-solid fa-receipt text-purple-400 mr-2"></i> ประวัติคำสั่งซื้อและการชำระเงิน
+          </h2>
+          <p class="text-sm text-slate-400">รายการซื้อซองสุ่ม, เติมเงิน พร้อมสถานะ QR Code และสลิปโอนเงิน</p>
+        </div>
+      </div>
+
+      <div class="bg-slate-900 rounded-2xl border border-slate-800 overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-slate-950/70 text-slate-400 text-xs uppercase border-b border-slate-800">
+              <tr>
+                <th class="px-6 py-4">เลขออเดอร์ / วันที่</th>
+                <th class="px-6 py-4">รายการ</th>
+                <th class="px-6 py-4">ยอดเงินสุทธิ</th>
+                <th class="px-6 py-4">วิธีชำระ</th>
+                <th class="px-6 py-4">สถานะ</th>
+                <th class="px-6 py-4 text-right">ดำเนินการ</th>
+              </tr>
+            </thead>
+            <tbody id="orders-table-body" class="divide-y divide-slate-800/60">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. ADMIN BACK-OFFICE VIEW -->
+    <section id="view-admin" class="hidden space-y-8">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+        <div>
+          <span
+            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
+            <i class="fa-solid fa-shield-halved mr-1"></i> Admin Dashboard
+          </span>
+          <h2 class="text-2xl font-bold text-white mt-1">ระบบจัดการเบื้องหลังร้านค้า (Admin Management)</h2>
+          <p class="text-sm text-slate-400">ตั้งค่าบัญชี PromptPay, ตรวจสอบสลิปโอนเงิน, และจัดการผู้ใช้</p>
+        </div>
+
+        <div class="flex items-center space-x-2">
+          <span class="text-xs text-slate-400">เข้าสู่ระบบในชื่อ Admin</span>
+        </div>
+      </div>
+
+      <!-- Stats Overview Cards -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4" id="admin-stats-container">
+        <!-- Rendered via JS -->
+      </div>
+
+      <!-- Admin Tabs: Settings / Orders / Users -->
+      <div class="bg-slate-900 rounded-2xl border border-slate-800 p-6 space-y-6">
+
+        <div class="flex border-b border-slate-800 space-x-4">
+          <button onclick="app.switchAdminSubtab('settings')" id="admin-subtab-settings"
+            class="pb-3 text-sm font-semibold border-b-2 border-amber-400 text-amber-400">
+            <i class="fa-solid fa-sliders mr-2"></i>ตั้งค่า PromptPay & ร้านค้า
+          </button>
+          <button onclick="app.switchAdminSubtab('orders')" id="admin-subtab-orders"
+            class="pb-3 text-sm font-semibold border-b-2 border-transparent text-slate-400 hover:text-slate-200">
+            <i class="fa-solid fa-file-invoice-dollar mr-2"></i>ตรวจสลิป & คำสั่งซื้อ
+          </button>
+          <button onclick="app.switchAdminSubtab('users')" id="admin-subtab-users"
+            class="pb-3 text-sm font-semibold border-b-2 border-transparent text-slate-400 hover:text-slate-200">
+            <i class="fa-solid fa-users mr-2"></i>จัดการสมาชิก & เครดิต
+          </button>
+        </div>
+
+        <!-- Subtab 1: PromptPay & System Settings -->
+        <div id="admin-section-settings" class="space-y-6">
+          <form onsubmit="app.saveAdminSettings(event)" class="space-y-4 max-w-xl">
+            <div>
+              <label class="block text-xs font-medium text-slate-400 mb-1">ชื่อร้านค้า (Store Name)</label>
+              <input type="text" id="adm-store-name"
+                class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white focus:border-amber-400 focus:outline-none">
+            </div>
+
+            <div class="bg-amber-950/20 border border-amber-500/30 p-4 rounded-xl space-y-3">
+              <h4 class="text-sm font-bold text-amber-300 flex items-center">
+                <i class="fa-solid fa-qrcode mr-2"></i> ตั้งค่า PromptPay สำหรับรับเงิน
+              </h4>
+              <p class="text-xs text-slate-300">
+                ใส่เบอร์โทรศัพท์มือถือที่ผูกพร้อมเพย์ (10 หลัก เช่น 0812345678) หรือเลขบัตรประชาชน/Tax ID (13 หลัก)
+                ระบบจะนำไปสร้าง QR Code มาตรฐาน EMVCo ทันที
+              </p>
+              <div>
+                <label class="block text-xs font-medium text-slate-400 mb-1">เบอร์พร้อมเพย์ หรือ เลข 13 หลัก</label>
+                <input type="text" id="adm-promptpay-id" required
+                  class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white focus:border-amber-400 focus:outline-none"
+                  placeholder="0812345678">
+              </div>
+              <div>
+                <label
+                  class="block text-xs font-medium text-slate-400 mb-1">ชื่อบัญชีพร้อมเพย์ที่แสดงให้ลูกค้าเห็น</label>
+                <input type="text" id="adm-promptpay-name"
+                  class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white focus:border-amber-400 focus:outline-none"
+                  placeholder="ร้าน LuckyCard Trading">
+              </div>
+            </div>
+
+            <div class="flex items-center space-x-3 p-4 bg-slate-950 rounded-xl border border-slate-800">
+              <input type="checkbox" id="adm-auto-approve"
+                class="w-5 h-5 rounded text-amber-500 focus:ring-amber-400 bg-slate-900 border-slate-700">
+              <div>
+                <label for="adm-auto-approve"
+                  class="text-sm font-medium text-white cursor-pointer">เปิดระบบอนุมัติสลิปอัตโนมัติ (Instant
+                  Auto-Approve)</label>
+                <p class="text-xs text-slate-400">เมื่อลูกค้าแนบสลิป ระบบจะอนุมัติและเปิดสุ่มการ์ดให้ทันที
+                  สะดวกสำหรับการทดสอบ</p>
+              </div>
+            </div>
+
+            <button type="submit"
+              class="px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm transition">
+              <i class="fa-solid fa-check mr-2"></i>บันทึกการตั้งค่าร้านค้า
+            </button>
+          </form>
+        </div>
+
+        <!-- Subtab 2: Slip & Order Approval -->
+        <div id="admin-section-orders" class="hidden space-y-4">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm">
+              <thead class="bg-slate-950 text-slate-400 text-xs uppercase">
+                <tr>
+                  <th class="px-4 py-3">Order ID</th>
+                  <th class="px-4 py-3">ลูกค้า</th>
+                  <th class="px-4 py-3">รายการ</th>
+                  <th class="px-4 py-3">ยอดชำระ</th>
+                  <th class="px-4 py-3">สลิปโอนเงิน</th>
+                  <th class="px-4 py-3">สถานะ</th>
+                  <th class="px-4 py-3 text-right">การจัดการ</th>
+                </tr>
+              </thead>
+              <tbody id="admin-orders-table-body" class="divide-y divide-slate-800">
+                <!-- Rendered via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Subtab 3: User Management -->
+        <div id="admin-section-users" class="hidden space-y-4">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm">
+              <thead class="bg-slate-950 text-slate-400 text-xs uppercase">
+                <tr>
+                  <th class="px-4 py-3">ผู้ใช้</th>
+                  <th class="px-4 py-3">อีเมล / เบอร์โทร</th>
+                  <th class="px-4 py-3">ระดับเมมเบอร์</th>
+                  <th class="px-4 py-3">ยอดซื้อสะสม</th>
+                  <th class="px-4 py-3">Coins / Points</th>
+                  <th class="px-4 py-3 text-right">ปรับยอดเงิน/พ้อยท์</th>
+                </tr>
+              </thead>
+              <tbody id="admin-users-table-body" class="divide-y divide-slate-800">
+                <!-- Rendered via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= MODALS & POPUPS ================= -->
+
+  <!-- 1. GACHA PACK OPENING OVERLAY MODAL -->
+  <div id="gacha-modal"
+    class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-xl">
+    <div
+      class="relative w-full max-w-4xl bg-slate-900 border border-purple-500/40 rounded-3xl p-6 sm:p-8 shadow-2xl overflow-hidden text-center">
+
+      <!-- Stage 1: Pack Ready to Rip -->
+      <div id="gacha-stage-pack" class="py-8 space-y-6">
+        <div
+          class="inline-block px-4 py-1.5 rounded-full text-xs font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30">
+          <i class="fa-solid fa-wand-magic-sparkles mr-1.5"></i> กำลังเปิดซองการ์ด...
+        </div>
+
+        <h3 id="gacha-pack-title" class="text-3xl font-extrabold text-white">Cyberpunk 2099 Legends</h3>
+
+        <!-- 3D Pack Card Graphic -->
+        <div id="gacha-pack-art" onclick="app.ripPack()"
+          class="cursor-pointer mx-auto w-56 h-80 rounded-2xl bg-gradient-to-tr from-cyan-600 to-purple-700 p-1 shadow-2xl shadow-purple-500/40 transform transition hover:scale-105 active:scale-95 group">
+          <div
+            class="w-full h-full bg-slate-950 rounded-xl flex flex-col items-center justify-between p-4 border border-white/20">
+            <div class="text-xs font-bold text-purple-400 font-orbitron">OFFICIAL GACHA PACK</div>
+            <i class="fa-solid fa-bolt text-5xl text-amber-400 group-hover:animate-bounce"></i>
+            <div>
+              <div class="text-sm font-bold text-white">คลิกเพื่อฉีกซอง!</div>
+              <div class="text-[10px] text-slate-400">TAP TO RIP & REVEAL</div>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-xs text-slate-400">แตะที่ซองการ์ดเพื่อฉีกซองและเผยการ์ดที่สุ่มได้</p>
+      </div>
+
+      <!-- Stage 2: Cards Reveal Screen -->
+      <div id="gacha-stage-reveal" class="hidden space-y-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-xl sm:text-2xl font-bold text-white flex items-center">
+              <i class="fa-solid fa-sparkles text-amber-400 mr-2"></i> ผลลัพธ์การสุ่มการ์ด!
+            </h3>
+            <p class="text-xs text-slate-400">คลิกที่การ์ดเพื่อพลิกดู หรือกด "เปิดทั้งหมด"</p>
+          </div>
+          <button onclick="app.revealAllCards()"
+            class="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-medium text-xs shadow-md transition">
+            <i class="fa-solid fa-eye mr-1.5"></i> เปิดทั้งหมด (Reveal All)
+          </button>
+        </div>
+
+        <!-- Cards Container (Horizontal or Grid) -->
+        <div id="gacha-cards-container"
+          class="grid grid-cols-1 sm:grid-cols-3 gap-6 py-4 max-h-[60vh] overflow-y-auto px-2">
+          <!-- Flip Cards dynamically inserted -->
+        </div>
+
+        <div class="pt-4 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3">
+          <div id="gacha-loot-summary" class="text-xs text-slate-300">
+            การ์ดทั้งหมดถูกบันทึกลงคลัง (Binder) ของคุณเรียบร้อยแล้ว
+          </div>
+          <div class="flex items-center gap-3">
+            <button onclick="app.closeGachaModal()"
+              class="px-6 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-medium text-sm transition">
+              ปิดหน้าต่าง
+            </button>
+            <button onclick="app.switchTab('binder'); app.closeGachaModal();"
+              class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-medium text-sm transition shadow-lg shadow-purple-600/30">
+              <i class="fa-solid fa-book-bookmark mr-2"></i>ไปที่คลังการ์ด
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 2. PROMPTPAY QR PAYMENT MODAL -->
+  <div id="payment-modal"
+    class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-md">
+    <div
+      class="relative w-full max-w-lg bg-slate-900 border border-slate-700 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6">
+
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div class="flex items-center space-x-2">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/c/c5/PromptPay-logo.png" alt="PromptPay"
+            class="h-6 object-contain bg-white rounded px-1">
+          <h3 class="text-lg font-bold text-white">ชำระเงินด้วย PromptPay QR</h3>
+        </div>
+        <button onclick="app.closePaymentModal()" class="text-slate-400 hover:text-white text-lg">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Amount Details -->
+      <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2">
+        <div class="flex justify-between text-xs text-slate-400">
+          <span>รายการ</span>
+          <span id="pay-item-name" class="font-medium text-white">-</span>
+        </div>
+        <div class="flex justify-between text-xs text-slate-400">
+          <span>ส่วนลด Member Tier</span>
+          <span id="pay-discount-text" class="text-emerald-400 font-medium">0฿</span>
+        </div>
+        <div class="flex justify-between items-center pt-2 border-t border-slate-800/80">
+          <span class="text-sm font-medium text-slate-300">ยอดชำระสุทธิ</span>
+          <span class="text-2xl font-black text-amber-400 font-orbitron"><span id="pay-amount">0.00</span> บาท</span>
+        </div>
+      </div>
+
+      <!-- QR Code Display Box -->
+      <div class="bg-white p-5 rounded-2xl text-center space-y-3 shadow-lg">
+        <div class="text-xs font-semibold text-slate-800 flex items-center justify-center">
+          <i class="fa-solid fa-building-columns mr-1.5 text-blue-600"></i>
+          <span id="pay-merchant-name">ร้าน LuckyCard Shop</span>
+        </div>
+
+        <div class="flex justify-center">
+          <img id="pay-qr-image" src="" alt="PromptPay QR Code"
+            class="w-56 h-56 object-contain border border-slate-200 rounded-lg">
+        </div>
+
+        <div class="text-[11px] text-slate-500">
+          สแกนผ่านแอปธนาคารได้ทุกธนาคาร (SCB, KBank, KTB, BBL ฯลฯ)
+        </div>
+      </div>
+
+      <!-- Slip Upload / Test Buttons -->
+      <div class="space-y-3">
+        <label class="block text-xs font-medium text-slate-400">
+          <i class="fa-solid fa-paperclip mr-1 text-purple-400"></i> แนบสลิปโอนเงินเพื่อยืนยัน:
+        </label>
+
+        <div class="flex items-center space-x-2">
+          <input type="file" id="slip-file-input" accept="image/*"
+            class="text-xs text-slate-400 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-purple-600 file:text-white hover:file:bg-purple-500 cursor-pointer">
+        </div>
+
+        <div class="pt-2 flex flex-col sm:flex-row gap-2">
+          <button onclick="app.submitSlip()"
+            class="flex-1 py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-medium text-sm transition shadow-lg shadow-purple-600/30">
+            <i class="fa-solid fa-upload mr-1.5"></i> ยืนยันการโอนเงิน
+          </button>
+
+          <!-- Instant Test Button -->
+          <button onclick="app.confirmDemoPayment()"
+            class="py-3 px-4 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/30 text-xs font-medium transition"
+            title="คลิกเพื่อจำลองการโอนสำเร็จทันทีโดยไม่ต้องใช้สลิปจริง">
+            <i class="fa-solid fa-circle-check mr-1 text-emerald-400"></i> ยืนยันชำระเงินจำลอง (Demo)
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 3. TOP-UP WALLET MODAL -->
+  <div id="topup-modal"
+    class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
+    <div class="relative w-full max-w-md bg-slate-900 border border-slate-700 rounded-3xl p-6 sm:p-8 space-y-6">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+        <h3 class="text-lg font-bold text-white flex items-center">
+          <i class="fa-solid fa-coins text-amber-400 mr-2"></i> เติมเหรียญกระเป๋า (Coins)
+        </h3>
+        <button onclick="app.closeTopupModal()" class="text-slate-400 hover:text-white">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="space-y-4">
+        <p class="text-xs text-slate-400">เลือกจำนวนเงินที่ต้องการเติมเข้ากระเป๋า (1 บาท = 1 Coin)
+          เพื่อใช้สุ่มการ์ดได้ทันทีไม่ต้องสแกนทุกรอบ</p>
+
+        <div class="grid grid-cols-3 gap-3">
+          <button onclick="app.selectTopupAmount(100)"
+            class="topup-preset-btn p-3 rounded-xl bg-slate-950 border border-slate-800 hover:border-purple-500 text-sm font-bold text-white">100
+            ฿</button>
+          <button onclick="app.selectTopupAmount(300)"
+            class="topup-preset-btn p-3 rounded-xl bg-slate-950 border border-slate-800 hover:border-purple-500 text-sm font-bold text-white">300
+            ฿</button>
+          <button onclick="app.selectTopupAmount(500)"
+            class="topup-preset-btn p-3 rounded-xl bg-slate-950 border border-slate-800 hover:border-purple-500 text-sm font-bold text-white">500
+            ฿</button>
+          <button onclick="app.selectTopupAmount(1000)"
+            class="topup-preset-btn p-3 rounded-xl bg-slate-950 border border-slate-800 hover:border-purple-500 text-sm font-bold text-white">1,000
+            ฿</button>
+          <button onclick="app.selectTopupAmount(2000)"
+            class="topup-preset-btn p-3 rounded-xl bg-slate-950 border border-slate-800 hover:border-purple-500 text-sm font-bold text-white">2,000
+            ฿</button>
+          <button onclick="app.selectTopupAmount(5000)"
+            class="topup-preset-btn p-3 rounded-xl bg-slate-950 border border-slate-800 hover:border-purple-500 text-sm font-bold text-white">5,000
+            ฿</button>
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-slate-400 mb-1">หรือระบุยอดเงิน (บาท)</label>
+          <input type="number" id="topup-custom-amount" min="20" value="100"
+            class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white focus:border-purple-500 focus:outline-none">
+        </div>
+
+        <button onclick="app.submitTopup()"
+          class="w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-sm transition">
+          <i class="fa-solid fa-qrcode mr-2"></i> สร้าง QR Code ชำระเงิน
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. AUTH MODAL (LOGIN / REGISTER) -->
+  <div id="auth-modal"
+    class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
+    <div class="relative w-full max-w-md bg-slate-900 border border-slate-700 rounded-3xl p-6 sm:p-8 space-y-6">
+
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+        <h3 id="auth-modal-title" class="text-xl font-bold text-white">เข้าสู่ระบบสมาชิก</h3>
+        <button onclick="app.closeAuthModal()" class="text-slate-400 hover:text-white">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Quick Demo Login Buttons -->
+      <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs space-y-2">
+        <div class="text-slate-400 font-semibold">คลิกเพื่อเข้าสู่ระบบทดสอบทันที (Demo):</div>
+        <div class="flex gap-2">
+          <button onclick="app.fillDemoLogin('demo@user.com', 'user123')"
+            class="px-3 py-1.5 rounded-lg bg-purple-950/50 hover:bg-purple-900/50 text-purple-300 border border-purple-800 text-xs">
+            <i class="fa-solid fa-user mr-1"></i> สมาชิก Demo
+          </button>
+          <button onclick="app.fillDemoLogin('admin@luckycard.com', 'admin123')"
+            class="px-3 py-1.5 rounded-lg bg-amber-950/50 hover:bg-amber-900/50 text-amber-300 border border-amber-800 text-xs">
+            <i class="fa-solid fa-shield mr-1"></i> แอดมินร้าน Admin
+          </button>
+        </div>
+      </div>
+
+      <form id="auth-form" onsubmit="app.handleAuthSubmit(event)" class="space-y-4">
+        <div id="auth-name-group" class="hidden">
+          <label class="block text-xs font-medium text-slate-400 mb-1">ชื่อที่แสดง</label>
+          <input type="text" id="auth-display-name"
+            class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white focus:border-purple-500 focus:outline-none"
+            placeholder="น้องการ์ด มือสุ่มไว">
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-slate-400 mb-1">อีเมล</label>
+          <input type="email" id="auth-email" required
+            class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white focus:border-purple-500 focus:outline-none"
+            placeholder="user@luckycard.com">
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-slate-400 mb-1">รหัสผ่าน</label>
+          <input type="password" id="auth-password" required
+            class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white focus:border-purple-500 focus:outline-none"
+            placeholder="••••••••">
+        </div>
+
+        <div id="auth-phone-group" class="hidden">
+          <label class="block text-xs font-medium text-slate-400 mb-1">เบอร์โทรศัพท์ (สำหรับจัดส่งพัสดุ)</label>
+          <input type="tel" id="auth-phone"
+            class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white focus:border-purple-500 focus:outline-none"
+            placeholder="08xxxxxxxx">
+        </div>
+
+        <button type="submit" id="auth-submit-btn"
+          class="w-full py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-sm transition shadow-lg shadow-purple-600/30">
+          เข้าสู่ระบบ
+        </button>
+      </form>
+
+      <div class="text-center text-xs text-slate-400">
+        <span id="auth-switch-text">ยังไม่มีบัญชีสมาชิก?</span>
+        <button onclick="app.toggleAuthMode()" id="auth-switch-btn"
+          class="text-purple-400 hover:underline font-semibold ml-1">
+          สมัครสมาชิกใหม่
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 5. CARD DETAIL MODAL -->
+  <div id="card-detail-modal"
+    class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
+    <div class="relative w-full max-w-sm bg-slate-900 border border-slate-700 rounded-3xl p-6 text-center space-y-4">
+      <button onclick="app.closeCardDetailModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div id="detail-card-badge"
+        class="inline-block px-3 py-1 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300">
+        SSR
+      </div>
+
+      <div class="w-48 h-64 mx-auto rounded-xl overflow-hidden shadow-2xl border-2 border-slate-700">
+        <img id="detail-card-img" src="" class="w-full h-full object-cover">
+      </div>
+
+      <div>
+        <h4 id="detail-card-name" class="text-lg font-bold text-white">Card Name</h4>
+        <p id="detail-card-element" class="text-xs text-purple-400">Element</p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-2 text-xs bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+        <div><span class="text-slate-400">ATK:</span> <strong id="detail-card-atk"
+            class="text-red-400 font-orbitron">0</strong></div>
+        <div><span class="text-slate-400">DEF:</span> <strong id="detail-card-def"
+            class="text-blue-400 font-orbitron">0</strong></div>
+      </div>
+
+      <p id="detail-card-desc"
+        class="text-xs text-slate-300 text-left bg-slate-950/40 p-3 rounded-xl border border-slate-800/80 italic">
+        Card Lore
+      </p>
+    </div>
+  </div>
+
+  <!-- Audio Controls Floating Button -->
+  <button onclick="app.toggleSound()" id="sound-btn"
+    class="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full bg-slate-800/90 hover:bg-slate-700 border border-slate-700 text-purple-400 flex items-center justify-center shadow-xl transition"
+    title="เปิด/ปิดเสียงเอฟเฟกต์">
+    <i class="fa-solid fa-volume-high text-lg"></i>
+  </button>
+
+  <!-- ================= SCRIPTS ================= -->
+  <script src="/js/sound.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+
+</html>
